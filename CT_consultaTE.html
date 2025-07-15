@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ConsultaTE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+    /* Animaciones generales */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% {
+        color: #5886af;
+        text-shadow: 0 0 5px #5886af;
+      }
+      50% {
+        color: #5886af;
+        text-shadow: 0 0 15px #5886af;
+      }
+    }
+
+    /* BODY */
+    body { 
+      background-color: #f4fff5; 
+      margin-bottom: 80px; /* espacio para footer fijo */
+      animation: fadeIn 1s ease forwards;
+      transition: background-color 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* MODO OSCURO */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    /* NAVBAR */
+    nav.navbar {
+      background-color: #5886af !important;
+      justify-content: center;
+      animation: slideUp 1s ease forwards;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      transition: background-color 0.3s ease;
+    }
+    nav.dark-mode {
+      background-color: #5886af !important;
+    }
+    nav .navbar-brand {
+      color: white !important;
+      font-weight: bold;
+      font-size: 1.8rem;
+      user-select: none;
+      letter-spacing: 2px;
+    }
+
+    /* SECCIÓN QUÉ HACEMOS */
+    #que-hacemos {
+      background: linear-gradient(#5886af, #5886af);
+      color: white;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-radius: 12px;
+      margin: 2rem auto;
+      max-width: 900px;
+      box-shadow: 0 8px 20px #5886af;
+      animation: slideUp 1.2s ease forwards;
+      user-select: none;
+    }
+    #que-hacemos h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 8px #5886af;
+    }
+    #que-hacemos p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      text-shadow: 0 0 4px #5886af;
+    }
+    body.dark-mode #que-hacemos {
+      background: linear-gradient(135deg, #5886af, #5886af);
+      box-shadow: 0 8px 25px #5886af;
+      text-shadow: 0 0 5px #5886af;
+    }
+
+    /* HEADER */
+    header {
+      animation: slideUp 1.4s ease forwards;
+      background-color: #e6f9ea;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      padding: 2rem 1rem;
+      box-shadow: 0 6px 18px #5886af;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.dark-mode header {
+      background-color: #061a2b;
+      color: #c8ffc8;
+      box-shadow: 0 6px 25px #041a2e;
+    }
+    header h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 3rem;
+      color: #5886af;
+      animation: pulse 2s infinite;
+      letter-spacing: 3px;
+      margin-bottom: 0.3rem;
+    }
+    body.dark-mode header h1 {
+      color: #5886af;
+      text-shadow: 0 0 8px #5886af;
+    }
+    header p.lead {
+      color: #222;
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 1.1px;
+    }
+    body.dark-mode header p.lead {
+      color: #ccc;
+    }
+
+    /* FOOTER */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #222;
+      padding: 15px 0;
+      z-index: 9999;
+      animation: fadeIn 2s ease forwards;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      text-shadow: 0 0 4px black;
+    }
+    body.dark-mode footer {
+      background-color: #111;
+    }
+    footer small a {
+      color: #fff !important;
+      text-decoration: underline;
+    }
+
+    /* SIDEBAR */
+    aside.col-md-3 {
+      position: sticky;
+      top: 80px;
+      height: calc(100vh - 100px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #5886af #d4f7d4;
+    }
+    aside.col-md-3::-webkit-scrollbar {
+      width: 6px;
+    }
+    aside.col-md-3::-webkit-scrollbar-track {
+      background: #d4f7d4;
+    }
+    aside.col-md-3::-webkit-scrollbar-thumb {
+      background-color: #5886af;
+      border-radius: 3px;
+    }
+
+    /* Categorías */
+    .list-group-item { 
+      cursor: pointer; 
+      transition: background-color 0.3s;
+      animation: fadeIn 1.4s ease forwards;
+      user-select: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.6px;
+    }
+    .list-group-item:hover {
+      background-color: #d4edda;
+    }
+    .list-group-item.active {
+      background-color: #5886af;
+      border-color: #5886af;
+      color: white;
+      box-shadow: 0 0 15px #5886af;
+    }
+    body.dark-mode .list-group-item:hover {
+      background-color: #5886af;
+    }
+    body.dark-mode .list-group-item.active {
+      background-color: #5886af;
+      border-color: #5886af;
+      color: #1f2831;
+      box-shadow: 0 0 15px #6aa8dbaa;
+    }
+
+    /* PRODUCT CARDS */
+    #productos .card {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.7s ease forwards;
+      animation-delay: var(--delay);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(40, 127, 167, 0.15);
+    }
+    #productos .card:hover { 
+      transform: scale(1.05);
+      box-shadow: 0 10px 28px rgba(40, 99, 167, 0.45);
+    }
+    body.dark-mode #productos .card:hover {
+      box-shadow: 0 10px 28px rgba(106, 187, 219, 0.7);
+    }
+    body.dark-mode #productos .card {
+      background-color: #1c262d;
+      color: #d9f1d9;
+      border-color: #395c66;
+      box-shadow: 0 4px 20px rgba(106, 183, 219, 0.15);
+    }
+
+    /* IMAGENES ZOOM */
+    #productos img {
+      transition: transform 0.3s ease;
+      border-radius: 12px 12px 0 0;
+      user-select: none;
+    }
+    #productos img:hover {
+      transform: scale(1.12);
+    }
+
+    /* BOTONES */
+    .btn-vermas {
+      background-color: #5886af;
+      color: white;
+      border: none;
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      animation: fadeIn 1.6s ease forwards;
+      user-select: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: 30px;
+      padding: 8px 20px;
+    }
+    .btn-vermas:hover {
+      background-color: #5886af;
+      transform: scale(1.07);
+      box-shadow: 0 0 12px #5886af;
+    }
+
+    /* DESCRIPCIONES */
+ .descripcion-producto {
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+  transition: all 0.4s ease;
+  color: #555;
+  font-size: 0.95rem;
+  margin-top: 10px;
+  user-select: text;
+}
+
+.descripcion-producto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.descripcion-producto::-webkit-scrollbar-thumb {
+  background-color: #5886af;
+  border-radius: 3px;
+}
+
+.descripcion-producto.show {
+  display: block;
+}
+    /* MODO OSCURO BOTON */
+    #toggle-dark {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 10000;
+      background-color: #5886af;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #5886af;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      font-size: 1.2rem;
+    }
+    #toggle-dark:hover {
+      background-color: #5886af;
+      box-shadow: 0 0 15px #5886af;
+    }
+    body.dark-mode #toggle-dark {
+      background-color: #5886af;
+      color: #1f2531;
+      box-shadow: 0 0 12px #5886af;
+    }
+    body.dark-mode #toggle-dark:hover {
+      background-color: #5886af;
+      box-shadow: 0 0 18px #5886af;
+    }
+/* LOGO EMPRESA */
+#logo-empresa {
+  height: 50px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(40, 116, 167, 0.4);
+}
+#logo-empresa:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+.text-success {
+    --bs-text-opacity: 1;
+    color: rgba(#5886af var(--bs-success-rgb), var(--bs-text-opacity)) !important;
+}
+ body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Contenedor del menú en la esquina */
+    .menu-corner {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1000;
+    }
+
+    /* Botón del menú */
+    .dropbtn {
+      background-color: #5886af;
+      color: white;
+      padding: 12px 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .dropbtn:hover {
+      background-color: #5886af;
+    }
+
+    /* Contenedor del contenido */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+      min-width: 180px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Mostrar al pasar el mouse */
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+  
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a class="navbar-brand" href="#">ConsultaTE</a>
+    <a href="#que-hacemos">    
+      <img src="https://i.postimg.cc/QBkg9v3Z/logo.png" alt="Logo ConsultaTE" id="logo-empresa" /></a>
+      <div class="menu-corner">
+    <div class="dropdown">
+      <button class="dropbtn">☰ Menú</button>
+     <div class="dropdown-content">
+        <ul class="list-group list-group-flush" id="categorias" role="tablist">
+          <li class="list-group-item list-group-item-action active" data-categoria="somos" role="tab" tabindex="0" aria-selected="true" aria-controls="productos">¿Quienes somos?</li>
+          <li class="list-group-item list-group-item-action" data-categoria="contactos" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">contactos</li>
+
+        </ul> 
+      </div>
+    </aside>
+      </div>
+    </div>
+  </div>
+  </div>
+</nav>
+
+
+<!-- ¿QUÉ HACEMOS? -->
+<section id="que-hacemos" role="region" aria-label="Qué hacemos">
+  <h2>DEMODAY</h2>
+  <p>Impulsamos startups y negocios emergentes conectándolos con inversionistas casuales y formales.</p>
+</section>
+
+<!-- HEADER -->
+<header>
+  <div class="container text-center">
+    <h1>Bienvenido a ConsultaTE</h1>
+    <p class="lead">Haz crecer tu idea con ConsultaTE</p>
+
+     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjs_HZGGg8PWZolb5jMzF0mjJpjguCWjeVXUNHgbSyFhQd6Q/viewform?usp=header" class="btn-vermas" target="_blank">REGISTRATE</a>
+    
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="container my-5">
+  <div class="row">
+    
+    <!-- CATEGORÍAS -->
+    <aside class="col-md-3 mb-4" role="navigation" aria-label="Categorías de productos">
+      <div class="card">
+        <div class="card-header text-white" style="background-color:#5886af;">
+          <strong>Categorías</strong>
+        </div>
+        <ul class="list-group list-group-flush" id="categorias" role="tablist">
+          <li class="list-group-item list-group-item-action active" data-categoria="cultura" role="tab" tabindex="0" aria-selected="true" aria-controls="productos">📚 Cultura</li>
+          <li class="list-group-item list-group-item-action" data-categoria="eventos" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">🎉 Eventos</li>
+          <li class="list-group-item list-group-item-action" data-categoria="asistencia" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">🧓 Asistencia para adultos mayores</li>
+          <li class="list-group-item list-group-item-action" data-categoria="mascotas" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">🐶 Mascotas</li>
+          <li class="list-group-item list-group-item-action" data-categoria="autoasistencia" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">⚙️ Autoasistencia</li>
+          <li class="list-group-item list-group-item-action" data-categoria="alimentosybebidas" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">🍔Alimentos y bebidas</li>
+          <li class="list-group-item list-group-item-action" data-categoria="modaybelleza" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">💄Moda y belleza</li>
+          <li class="list-group-item list-group-item-action" data-categoria="guiaescolar" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">📖Guia escolar</li>
+          <li class="list-group-item list-group-item-action" data-categoria="arteydiseño" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">🎨Arte y diseño</li>
+          <li class="list-group-item list-group-item-action" data-categoria="entretenimiento" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">📺entretenimiento</li>
+          <li class="list-group-item list-group-item-action" data-categoria="salud" role="tab" tabindex="-1" aria-selected="false" aria-controls="productos">👨‍⚕️salud</li>
+           <li class="list-group-item list-group-item-action active" data-categoria="deportes" role="tab" tabindex="0" aria-selected="true" aria-controls="productos"> ⚽deportes</li>
+        </ul> 
+      </div>
+    </aside>
+
+    <!-- PRODUCTOS -->
+    <section class="col-md-9" aria-live="polite" aria-atomic="true">
+      <div class="row g-4" id="productos"></div>
+    </section>
+
+  </div>
+</div>
+
+<!-- MODO OSCURO TOGGLE -->
+<button id="toggle-dark" aria-label="Activar modo oscuro">🌙</button>
+
+<!-- FOOTER -->
+<footer class="text-center text-white">
+  <div class="container">
+    <small>&copy; 2025 ConsultaTE – <a href="mailto:ConsultaTE.upvm@gmail.com">ConsultaTE.upvm@gmail.com</a></small>
+  </div>
+</footer>
+
+<!-- JS -->
+<script>
+const productosPorCategoria = {
+  cultura: [
+    {
+
+      
+      imagen: "https://i.postimg.cc/dhnndtLq/cultura.jpg",
+      descripcion: "Somos  una página web que da información sobre el baile regional mexicano para niños y adulto , también a través de la página  se recomiendan academias en donde puedes  visitarlas  y pedir más información sobre el tema",
+      link: "https://docs.google.com/forms/d/13eDqyb7hVm7hdxA4x5mYXds7W633aO4lKv0hMkKOMSo/viewform"
+    },
+    {
+     
+      
+      imagen: "https://i.postimg.cc/9zTpbBrg/cultura1.jpg",
+      descripcion: "Nos enfocamos en artistas independientes de entre 18 y 34 años que viven en zonas urbanas con poca visibilidad cultural, especialmente dentro de comunidades estudiantiles o artísticas locales (por ejemplo, en la universidad y sus alrededores.",
+      link: "https://docs.google.com/forms/d/1CMN4ND8kvvT1x29GZFqVyE2NBkUvcRICJ3YrE5hHLuw/viewform"
+    },
+    {
+      
+     
+      imagen: "https://i.postimg.cc/RJcL0vkx/cultura2.jpg",
+      descripcion: "Somos una pagina web que se dedica a la venta de obras artísticas de pequeños artistas emergentes que quieran generar dinero a través de su pasión. Mediante una suscripción mensual premium, tanto el cliente como el consumidor tendrán beneficios extra para aquellos que no estén suscritos, uno de esos beneficios será la posibilidad de subastar sus obras. Nuestro publico es dirigido a pequeños artistas, llámese pintores, dibujantes, escritores, etc. Este público tiene como característica común el tener reconocimiento por sus creaciones, así como ingresos extra.",
+      link: "https://docs.google.com/forms/d/1aIM_CksDtTLSDJScFDpZkZDe8yWjDBwSAh_p29MLpqk/viewform"
+    },
+    {
+     
+    
+     imagen: "https://i.postimg.cc/1RLRsfPP/Whats-App-Image-2025-06-28-at-3-38-24-PM.jpg",
+     descripcion:"Melodía de Luna es una empresa creativa y socialmente comprometida, dedicada a la creación, producción y entrega de música original, exclusiva y libre de derechos de autor.Cada melodía se desarrolla bajo pedido y se cobra por pieza terminada, considerando su nivel de complejidad y los elementos requeridos. Al finalizar, se realiza la cesión total de derechos de autor al cliente.",
+     link: "https://docs.google.com/forms/d/1Goihxd_9xBHIsP_rnDrHoFlLRj3Zzhiskx7H-nWYlgU/viewform"
+   },
+  ],
+  eventos: [
+    {
+      
+    
+      imagen: "https://i.postimg.cc/GT0jr4Sj/eventos.jpg",
+      descripcion: "Somos un equipo que buscamos ofrecerles un servicio eficaz y eficiente, un recuerdo memorable, haciendo la mejor experencia para satisfacer tanto como a los clientes como a los invitados y diferenciarnos de la competencia dándoles una mejor calidad, seguridad e higiene en nuestros productos para completar un servicio ideal.",
+      link: "https://docs.google.com/forms/d/12JFfzALU7X9gCZAlI9x9kMztgVRdniAXGPKC0qYJezo/viewform"
+    },
+    {
+     
+     
+      imagen: "https://i.postimg.cc/DWZ6ckX1/eventos1.jpg",
+      descripcion: "Somos un intermediario entre el contratador y la persona que ofrece sus servicios. FiestaMex te ayuda a ser parte del servidor o contratador, en nuestro sitio web te ayudamos a cotizar, contactar, para que tu fiesta sea la mejor para tu evento. Ofrecemos todo tipo de eventos, como también se rentan animadores,botargas, decoraciones etc.",
+      link:"https://docs.google.com/forms/d/179LcPoD5l0cnaDt944j_EXwEOGHVMMIrlXtXY4i3bLI/viewform"
+    }
+  ],
+  asistencia: [
+    {
+      
+     
+      imagen: "https://i.postimg.cc/rpJhJFDL/JEFES-DE-VIDA.jpg",
+      descripcion: "Una plataforma que se enfoca en trabajos informales en adultos mayores con problemas por la búsqueda de trabajo.",
+      link: "https://docs.google.com/forms/d/1vh5tMJhNTw0ChKnxZpB06-nCRa7K4Ktuna5rv9_jePI/viewform"
+    },
+    {
+     
+      
+      imagen: "https://i.postimg.cc/3Rxtb5G0/MALETA.jpg",
+      descripcion: "Nuestro emprendimiento ofrece un innovador carrito de mandados diseñado especialmente para adultos mayores, que no solo facilita el transporte de alimentos, frutas, verduras y otros productos, sino que también brinda mayor comodidad, autonomía y seguridad al incluir un asiento plegable para descansar en cualquier momento y una práctica escalera integrada para ayudarles a organizar su despensa con facilidad.",
+      link: "https://docs.google.com/forms/d/1F0iB0TusmQrcU7-cL0RzpzUdwO4gIkWHA7mcOf3mBn8/viewform"
+    },
+    {
+     
+   
+     imagen: "https://i.postimg.cc/NMBXFKBK/Whats-App-Image-2025-06-28-at-3-37-34-PM.jpg",
+     descripcion: "Red Empleo es una plataforma digital con enfoque social que promueve la inclusión laboral de personas mayores de 45 años.Su propósito es combatir la discriminación por edad, reducir la brecha digital y ofrecer herramientas concretas para que los adultos mayores se reintegren al mercado laboral.",
+     link: "https://docs.google.com/forms/d/1Xq8eCy5yZQKFNDRVBjZsCEzCfz4eBUllZeuApVQhNkE/viewform"
+   },
+  ],
+  mascotas: [
+    {
+      
+      
+      imagen: "https://i.postimg.cc/HkGzQ7sN/mascotas.jpg",
+      descripcion: "Somos una página web, de un airbnb de perritos, si tú tienes que salir y no tienes donde dejar a tu perrito, en nuestra página puedes encontrar patiprotectores (cuidadores) de alta profesionalidad en la cual podrás dejar a tu cachorro, también tenemos eventos exclusivos para nuestros clientes,una tienda online de objetos o alimentos para perritos y para adoptar. Nuestro público va dirigido a jóvenes de 25 a 40 años, dueños de perros que tienen empleos los cuales les exigen viajar o tienen emergencias y necesitan dejar a su mascota en un lugar seguro.",
+      link: "https://docs.google.com/forms/d/1nOUSj8bCGwPGjp_NyRsJm8SHcwPy6IuLHYlvk1k4z2w/viewform"
+        },
+  ],
+  autoasistencia: [
+    {
+     
+     
+      imagen: "https://i.postimg.cc/6QXH6zSw/autoguias.jpg",
+      descripcion: "Auto guías es una plataforma dedicada a ofrecer información clara y confiable sobre trámites vehiculares, diseñada especialmente para quienes no cuentan con experiencia previa en estos procesos. Nuestro objetivo es brindar orientación práctica y precisa sobre los requisitos, procedimientos y normativas vigentes, facilitando así la gestión y evitando inconvenientes legales.",
+      link: "https://docs.google.com/forms/d/1Tpxt-3xBfgjQe-ru8Ecx3aukYIk3S5PP_wHy1k3ajBA/viewform"
+    },
+    {
+     
+    
+     imagen: "https://i.postimg.cc/cHchHMSt/Whats-App-Image-2025-06-28-at-3-36-57-PM.jpg",
+     descripcion: "En Ferulitas nos dedicamos a proveer  férulas hechas a la medida, a hospitales privados y centros terapéuticos. Servicios principales:Ofrecer  férulas personalizadas y entregarlas a los centros de asistencia médica ortopédica que las requieran.Brindar atención referente a las férulas a los consumidores y su familia a través de nuestra página.",
+     link: "https://docs.google.com/forms/d/1hDko-7nWOzhh2d0bMCqZMkOpMWIplWD3thrgQEiPWac/viewform"
+   },
+   {
+     
+    
+     imagen: "https://i.postimg.cc/NfvCQ4rD/Whats-App-Image-2025-06-28-at-3-36-58-PM.jpg",
+     descripcion: "En SYNERGY nos enfocamos en Proporcionar información sobre cómo conducir de manera segura, el uso adecuado de equipo de protección, y las mejores prácticas para evitar accidentes.Va dirigido más que nada hacia los jovenes, Personas que poseen o están interesadas en adquirir una motocicleta.Aquellos que están aprendiendo a conducir motocicletas y necesitan información sobre seguridad.",
+     link: "https://docs.google.com/forms/d/e/1FAIpQLSfAEAD6YZs28ogiFCelpu6oBXZ_KmlchVz0ZqIB6xAmsSBLnw/viewform?usp=header"
+   },
+   {
+     
+    
+     imagen: "https://i.postimg.cc/1t2FyJCK/Whats-App-Image-2025-06-28-at-3-36-58-PM-1.jpg",
+     descripcion: "En TeleDoctores desarrollamos y difundimos contenido médico preventivo, validado y accesible, utilizando una plataforma multicanal que llega a zonas rurales y de difícil acceso en México.Nuestro propósito es reducir la desinformación en salud y empoderar a las personas, especialmente en zonas rurales, para prevenir enfermedades comunes y mejorar su bienestar.",
+     link: "https://docs.google.com/forms/d/e/1FAIpQLSdGqBZohMB0dyvKjKqxIsqY06RJnV1NHUcMUQy5lqOHHrXkLA/viewform"
+   },
+   {
+     
+     
+     imagen: "https://i.postimg.cc/13rxDPbG/Whats-App-Image-2025-07-03-at-2-00-51-PM.jpg",
+     descripcion: "Mujeres Sin Freno es un sitio web que conecta a mujeres consumidoras con mecánicos y proveedores de autopartes confiables, promoviendo la inclusión y visibilidad de jóvenes LGBTQ+ en la industria automotriz.Va dirigido, alas mujeres con desconfianza en mecánicos  y de la falta de conocimiento en  autopartes",
+     link: "https://docs.google.com/forms/d/e/1FAIpQLSeITDajZ1VbuO4SK_upHfYolzPeSK4FebLnMOIo23RM-fGqJA/viewform"
+   },
+  ],
+  guiaescolar: [
+    {
+      
+    
+      imagen: "https://i.postimg.cc/sD0xRNMQ/escolar.jpg",
+      descripcion: "Aula360 es un emprendimiento creado por jóvenes estudiantes que ofrece recorridos virtuales 360° como producto base, y servicios adicionales como fichas multimedia de personal o servicios y micrositios personalizados como paquetes complementarios. Está dirigido a instituciones, negocios y empresas que desean mejorar su imagen digital de manera accesible y profesional. El proyecto comienza trabajando con una escuela privada, pero está diseñado para adaptarse a diversos sectores como comercios, clínicas, oficinas, gimnasios, despachos y más.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLScQkvsX68XBa6vmUBBwEZ10E8Zj4A9NGgygaBmvuou_C3gjjA/viewform"
+    },
+    {
+      
+      
+      imagen: "https://i.postimg.cc/FH7N9YNZ/Whats-App-Image-2025-06-28-at-3-35-32-PM.jpg",
+      descripcion: "Plan de 10 es una página web informativa diseñada especialmente para estudiantes universitarios sin experiencia en la elaboración de proyectos académicos. Su objetivo es ofrecer una guía clara, visual y paso a paso que los oriente en la creación de proyectos escolares, desde el título hasta la conclusión, incluyendo herramientas, modelos de proyecto, ejemplos y plantillas. Nuestro público son estudiantes universitarios de entre 18 y 25 años.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLScygxDWgQgWfEldbugm5EBNZ9TLwzf9DaTLMCOT7hqhgsOB6w/viewform"
+    },
+    {
+      
+     
+      imagen: "https://i.postimg.cc/VsqjR6yD/Whats-App-Image-2025-06-28-at-3-35-32-PM-1.jpg",
+      descripcion: "Es un emprendimiento de pagina web que funciona como un repositorio que crea plantillas de publicidad para los distintos emprendimientos que lo necesiten. Hacemos plantillas para redes sociales, códigos QR, y le damos exposición en nuestra pagina web. Nuestro público principalmente es universitario y es completamente gratuito cualquier servicio.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLScdUyrWUi_U1EBLGDXr71L_7ebBv--GO546OboRGvJCweBCIA/viewform?usp=header"
+    },
+    {
+      
+     
+      imagen: "https://i.postimg.cc/dVJ87KLD/Whats-App-Image-2025-06-28-at-3-35-32-PM-2.jpg",
+      descripcion: "Nosotros somos “Por Primera Vez” Brindamos orientación y apoyo en temas clave para jóvenes como salud, finanzas, relaciones, trabajo y más, a través de una página web empática y participativa. Vamos dirigidos a Adolescentes y jóvenes de 13 a 22 años que buscan información clara, confiable y sin prejuicios.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSewJBA7vrAN5kFO8zJSK0o948fkzohDR6aeXb5a0I-1kyypGA/viewform?usp=header"
+      
+    },
+    {
+      
+    
+      imagen: "https://i.postimg.cc/L5CPvWst/Whats-App-Image-2025-06-28-at-3-45-51-PM.jpg",
+      descripcion: "Ofrecemos un curso de verano de dos semanas de lunes a viernes en un horario de 9:00am a 1:00 pm. Combinamos actividades recreativas y formativas como clases de baile, repostería, educación vial y manaualidades incorporando contenidos básicos de educación financiera.Nuestro servicio está dirigido a padres de 25 a 45 años con trabajo de tiempo completo y disponibilidad limitada para el cuidado diario de sus hijos.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSfu4NjH5SvniNUj3OcHLjMXXIyvLV8vnoy06WRIWvI5HpoReA/viewform?usp=header"
+    },
+  ],
+  modaybelleza: [
+    {
+
+      
+      imagen: "https://i.postimg.cc/VNxXmJLX/teritorio-H.png",
+      descripcion: "Es una revista digital especializada en el mundo de la barbería y el estilo masculino. Nuestro objetivo es brindar contenido de calidad tanto visual como informativo, enfocado en tendencias de cortes, cuidado personal, moda, consejos prácticos y temas de interés para hombres,Nos enfocamos en crear y difundir contenido diseñado para enriquecer la experiencia de los clientes de barberías.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSf32lSPeAy1xLik-3KD3PBsVjB5TTkqa4MLC4sb6y9uLg3lxQ/viewform" 
+    },
+    {
+     
+      
+      imagen: "https://i.postimg.cc/T1fGbvcp/Whats-App-Image-2025-06-28-at-3-33-01-PM.jpg",
+      descripcion: "Somos Vístete de nuevo, un emprendimiento que se dedica a custumizar ropa de segunda mano, estamos dirigidos a un público de 18 a 50 años.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSe97nLn7VLq05iXtVu-pQwI1m7msfemUAN2nM0QcWlrWRfV-g/viewform"
+    },
+    {
+      
+     
+      imagen:"https://i.postimg.cc/8ztFJgVk/Whats-App-Image-2025-06-28-at-3-34-03-PM.jpg",
+      descripcion: "Hilando Esperanza es un proyecto social que transforma ropa en desuso en productos textiles útiles como cobijas y toallas mediante el procesamiento de la ropa. Nos dedicamos a capacitar y emplear a   mujeres de comunidades rurales que no cuentan con un trabajo digno o bien remunerado para brindarles una fuente de ingreso digno y fortalecer la economía circular.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLScSjKGmJCXldoSto_NncfrsCrbOpXmyzLiM4qyD47zs4reFMw/viewform"
+    }
+    
+  ],
+  arteydiseño: [
+    {
+
+      
+      imagen: "https://i.postimg.cc/Pr3NzLyG/Whats-App-Image-2025-06-28-at-3-36-14-PM.jpg",
+      descripcion: "Tu Sello Box, un emprendimiento dedicado a la creación de cajas personalizadas y pintadas a mano, ideales para regalos, decoración y eventos especiales. Nos dirigimos a personas que buscan obsequios únicos, emprendedores que necesitan empaques creativos y público amante del arte en redes sociales.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSexSkLh8FJpQfKxh88_PfX9Xo2rZSWU_z-aKcNdauMRMfbJjQ/viewform"
+    },
+    {
+     
+     
+      imagen: "https://i.postimg.cc/Sxg5K4mf/Whats-App-Image-2025-06-28-at-3-36-14-PM-1.jpg",
+      descripcion: "Es un emprendimiento que se dedica a la creación de objetos tradicionales (llaveros personalizados tejidos a mano con aromas naturales). Influyendo en el bienestar emocional de los clientes a través de la aromaterapia en nuestros productos. Nos dirigimos al público del rango de 15- 35 años.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSdpmLBB7BVvLcEMheOpOX_6rCux1buL-A9Cod6i1heLIq48Wg/viewform?usp=header"
+    },
+    {
+      
+      
+      imagen:"https://i.postimg.cc/HsV8N4VW/Whats-App-Image-2025-06-28-at-3-36-14-PM-2.jpg",
+      descripcion: "Nopalvaso, estará basado en la elaboración de la versión anime/animada  con factores que caracterizan a las personas que lo adquieren (Termos  personalizados por Diseño Digital con las características físicas los usuarios, al igual que una fotografía de referencia). Tener una conexión con el cliente emocionalmente generando un impacto a través de elementos claves en lo que le gusta,generando una identidad a un producto que generalmente usan como portador de agua siendo genérico.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSd05A-Q4Kpt9cpTRzYsPfUvuNRuJYDBI4oLrvSZbv9CTx7H2A/viewform?usp=header"
+    },
+    {
+      
+      
+      imagen:"https://i.postimg.cc/h431hGmj/Whats-App-Image-2025-06-28-at-3-36-14-PM-3.jpg",
+      descripcion: "AmoreFiore es un emprendimiento artesanal 100% mexicano que transforma papel en arte emocional. Nos especializamos en la creación de flores de papel hechas a mano utilizando técnicas como el origami y la papiroflexia, así como en la personalización de regalos y la decoración de eventos sociales.Ramos de flores de papelTazas, marcos, portarretratos y más mensajes únicos y empaques especiales.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSekDe_umSyOmPJDWCMWx0ikEb0nq0T_h4pW1fI0m2EGb-aMfQ/viewform?usp=header"
+    },
+      
+  ],
+  entretenimiento: [
+    {
+
+      
+      imagen: "https://i.postimg.cc/4xh7f6kf/Whats-App-Image-2025-06-28-at-3-38-01-PM.jpg",
+      descripcion: "Somos un emprendimiento el cual busca que las personas puedan desestresarse mediante nuestro dinámica de juego para que se les vuelva una adicción. Nos digirimos principalmente a publico en general desde los 14 años en adelante.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSfnKn_Wv1KJriy4azMez1miuulUwsdjb6Fkp8x5v4ZDgOdjow/viewform?usp=header"
+    },
+    {
+     
+      
+      imagen: "https://i.postimg.cc/kXNW3r8J/Whats-App-Image-2025-06-28-at-3-38-01-PM-1.jpg",
+      descripcion: "PequeMente es una plataforma interactiva en la que niños de 5 a 12 años crean material didáctico, el cual es posteriormente utilizado por profesionales en psicología y áreas con el fin de apoyar procesos de aprendizaje, desarrollo cognitivo y salud emocional.Nuestro sitio se dedica a encontrar un espacio interactivo donde los niños pueden crear materiales didácticos de forma dinámica.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSc_z5J6VrfhYbUFDnNngtJXMWFji5_FgLDJ1tNkP0gsb30X-A/viewform?usp=header"
+    },
+    
+    
+  ],
+  alimentosybebidas: [
+    {
+
+      
+      imagen: "https://i.postimg.cc/cLB7YvcG/Whats-App-Image-2025-06-28-at-3-41-25-PM.jpg",
+      descripcion: "Hemos creado una página web que reúne y promueve cafeterías con elementos diferenciadores, como temáticas originales, propuestas innovadoras, experiencias únicas y diseños distintivos. Nuestro objetivo es ofrecer inspiración a futuros emprendedores del mundo cafetero, brindar un espacio de promoción para cafeterías ya establecidas y proporcionar al público en general un amplio repertorio de lugares por descubrir y visitar.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSeHlxnjGG-Uxci42g0MQi4YGZfpdfDrf-SUWCk8scGYSXkZkg/viewform"
+    },
+    {
+     
+     
+      imagen: "https://i.postimg.cc/m282HRF6/Whats-App-Image-2025-06-28-at-3-41-25-PM-1.jpg",
+      descripcion: "	Diseñamos contenidos visuales y técnicos (videos, guías, calculadoras) sobre cafeticultura.Capacitamos productores y cooperativas para mejorar la productividad del café.  •Proveemos herramientas para fijar precios y reducir dependencia de intermediarios.   Conectamos a los cafetaleros con compradores directos, impulsando comercio justo.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSf1Q4VjL3NkVXiPvi7QUAi3YxnU1oUo9RJtr0rz5Q6Xt0EMoQ/viewform"
+    }, 
+  ],
+  salud: [
+    
+    {
+     
+     
+      imagen: "https://i.postimg.cc/c4G4Vjrv/Whats-App-Image-2025-07-03-at-2-00-04-PM.jpg",
+      descripcion: "SANA-MENTE es una plataforma digital (una página web) que tiene como propósito. Apoyar la salud mental de jóvenes.Brindar herramientas para entender, expresar y sanar emociones, especialmente tras el impacto de la pandemia.Ofrecer acompañamiento emocional, contenido relajante y una red de apoyo digital.Funciona como un espacio amigable y accesible, con cuestionarios emocionales, videos de calma y recursos psicoemocionales.El público objetivo de SANA-MENTE son:Jóvenes de entre 15 y 25 años.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSd9KhJCQ_5P9mFRPkfQ75a6F42TYr3HCVfq4sA3ax4UGW6wrg/viewform?usp=header"
+    }
+  ],
+  deportes:[
+    {
+    imagen: "https://i.postimg.cc/BnNfWMh2/Whats-App-Image-2025-07-03-at-1-56-19-PM-1.jpg",
+     descripcion: "Talento Joven, somos una página web dedicada a diseñar y validar una comunidad activa en instagram conformada por aquellos jóvenes que quieren tener un futuro futbolístico profesionalmente, que interactúen con el contenido de Talento Joven, se interesen por los micro campamentos, torneos, entrenamientos y historias profesionales y así tengan su futuro soñado.Nuestro público va dirigido a los jóvenes entre 12 y 20 años y a los padres de familia que quieren que sus hijos tengan su futuro futbolístico.",
+     link: "https://docs.google.com/forms/d/e/1FAIpQLSeVWUi2Os0lPJDYbggdIvNNW5OGUsZWVbayKNv4PbK8ZJISCw/viewform?usp=header"
+    },
+    {
+     
+     
+      imagen: "https://i.postimg.cc/pLNdpjNq/Whats-App-Image-2025-07-07-at-11-25-59-AM.jpg",
+      descripcion: "Golpe Maestro es un emprendimiento enfocado en el entrenamiento físico y mental a través del boxeo. Nos especializamos en ofrecer clases y asesoría personalizada para todos los niveles: desde principiantes hasta atletas avanzados. Nuestro objetivo es formar campeones dentro y fuera del ring, fortaleciendo cuerpo, mente y carácter.",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSdfApnikcv6oc_qHJlRCYqJWl8hm3WI1L6olXlT0bHo4mQmpg/viewform?usp=header"
+    }, 
+  ],
+   somos:[
+    {
+    imagen: "https://i.postimg.cc/wBTSwGf6/Captura.png",
+     descripcion:" Somos un espacio de guía, formación y acompañamiento para estudiantes y emprendedores que buscan hacer crecer sus ideas desde cero, brindándoles asesoría personalizada, herramientas estratégicas y una comunidad que cree en el poder de la innovación.",
+     link:"https://docs.google.com/forms/d/e/1FAIpQLScA0wqWjogzDIxDfzxlZqARovpIktpg1hQEXkUj_kPzFGpPQw/viewform?usp=sharing&ouid=109972425621641317376"
+    },
+  ],
+contactos: [
+    {
+
+      
+      imagen: "https://i.postimg.cc/hvtLwNz0/sergio.png",
+      descripcion: "Sergio Alexader Velázquez Gonzales - Cerebro          telefono:5567879069",
+      link: ""
+    },
+    {
+     
+      
+      imagen: "https://i.postimg.cc/RFDhSYpd/kari.png",
+      descripcion: "Karina Cruz Lara - Investigador",
+      link: ""
+    },
+    {
+      
+     
+      imagen: "https://i.postimg.cc/bwgtXmPC/miz.png",
+      descripcion: "Mizraim Gómez Moreno  Finalizador-programador ",
+      link: ""
+    },
+    {
+     
+    
+     imagen: "https://i.postimg.cc/jddTgc8d/pao2.png",
+     descripcion:"Paola Aime Arellano Cruz  Evaluador",
+     link: ""
+   },
+  ],
+
+};
+
+function mostrarProductos(categoria) {
+  const contenedor = document.getElementById("productos");
+  contenedor.innerHTML = "";
+
+  productosPorCategoria[categoria].forEach((producto, index) => {
+    const div = document.createElement("div");
+    div.classList.add("col-12", "col-md-6", "col-lg-4");
+    div.style.setProperty('--delay', `${index * 0.15}s`);
+
+    div.innerHTML = `
+      <div class="card h-100">
+        <img src="${producto.imagen}" class="card-img-top" loading="lazy" alt="${producto.nombre || ''}" />
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">${producto.nombre || ''}</h5>
+          
+          <button class="btn-vermas mt-auto" aria-expanded="false" aria-controls="desc-${categoria}-${index}">Ver más</button>
+          <div class="descripcion-producto" id="desc-${categoria}-${index}" role="region" aria-live="polite">
+            ${producto.descripcion}
+            <div class="mt-3 text-center">
+              <a href="${producto.link}" target="_blank" class="btn-vermas d-none" id="link-${categoria}-${index}">Evaluar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    contenedor.appendChild(div);
+
+    const btnVerMas = div.querySelector(".btn-vermas");
+    const desc = div.querySelector(".descripcion-producto");
+    const linkBtn = div.querySelector(`#link-${categoria}-${index}`);
+
+    btnVerMas.addEventListener("click", () => {
+      const isExpanded = btnVerMas.getAttribute("aria-expanded") === "true";
+      btnVerMas.setAttribute("aria-expanded", !isExpanded);
+      btnVerMas.textContent = isExpanded ? "Ver más" : "Ver menos";
+
+      if (!isExpanded) {
+        desc.classList.add("show");
+        linkBtn.classList.remove("d-none");
+      } else {
+        desc.classList.remove("show");
+        linkBtn.classList.add("d-none");
+      }
+    });
+  });
+}
+
+
+// Inicializar con cultura
+document.addEventListener("DOMContentLoaded", () => {
+  mostrarProductos("cultura");
+
+  const categorias = document.querySelectorAll("#categorias .list-group-item");
+  categorias.forEach(item => {
+    item.addEventListener("click", () => {
+      categorias.forEach(i => {
+        i.classList.remove("active");
+        i.setAttribute("aria-selected", "false");
+        i.setAttribute("tabindex", "-1");
+      });
+      item.classList.add("active");
+      item.setAttribute("aria-selected", "true");
+      item.setAttribute("tabindex", "0");
+      mostrarProductos(item.dataset.categoria);
+      // scroll suave a productos
+      document.getElementById("productos").scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Modo oscuro toggle
+  const btnDark = document.getElementById("toggle-dark");
+  btnDark.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    btnDark.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+  });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
