@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <link rel="icon" href="img/papelera-de-reciclaje.">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #62e6d4;
+         
+            background-size: 10%;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #5886af;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #579af1;
+            border-radius: 3px;
+        }
+
+        .btn {
+            display: block;
+            width: 60%;
+            padding: 10px;
+            background-color: #59d9dd;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 10px auto;
+            text-align: center;
+            transition: all 250ms ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #b287ca;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Inicia Sesión</h2>
+        <form action="login.php" method="post">
+            <div class="form-group">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" required placeholder="correo@example.com">
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required placeholder="********">
+            </div>
+            <input class="btn" type="submit" name="iniciar" value="Iniciar Sesión">
+        </form>
+    </div>
+</body>
+</html>
