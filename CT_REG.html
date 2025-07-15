@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #59dcf3;
+           
+            background-size: 10%;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #5886af;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #6dade2;
+            border-radius: 3px;
+        }
+
+        .btn {
+            display: block;
+            width: 60%;
+            padding: 10px;
+            background-color: #85afcc;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 10px auto;
+            text-align: center;
+            text-decoration: none;
+            transition: all 250ms ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #5886af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Regístrate</h2>
+        <form action="BD.php" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" required placeholder="Nombre">
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" name="correo" required placeholder="correo@example.com">
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" name="contrasena" required placeholder="********">
+            </div>
+
+            <input class="btn" type="submit" name="enviar" value="Registrarse">
+
+            <a class="btn" href="IS.html">Iniciar Sesión</a>
+        </form>
+    </div>
+</body>
+</html>
